@@ -9,9 +9,10 @@ class ProductionLot(models.Model):
     _inherit = "stock.production.lot"
 
     @api.model
-    def get_available_lots_for_pos(self, product_id, company_id):
+    def get_available_lots_for_pos(self, product_id, company_id, src_storage_id):
         lots = self.sudo().search(
             [
+                "&",
                 "&",
                 ["product_id", "=", product_id],
                 "|",
@@ -24,7 +25,7 @@ class ProductionLot(models.Model):
             lambda l: float_compare(
                 l.product_qty, 0, precision_digits=l.product_uom_id.rounding
             )
-            > 0
+            > 0 and l.quant_id and l.quant_id.location_id == src_storage_id
         )
 
         return lots.mapped("name")

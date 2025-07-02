@@ -17,9 +17,10 @@ odoo.define("pos_lot_selection.models", function (require) {
                         kwargs: {
                             product_id: product.id,
                             company_id: this.env.session.company_id,
+                            src_storage_id: this.env.pos.picking_type.default_location_src_id,
                         },
                     },
-                    {shadow: true}
+                    { shadow: true }
                 );
             } catch (error) {
                 console.error(error);
