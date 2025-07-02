@@ -20,11 +20,14 @@ class ProductionLot(models.Model):
             ]
         )
 
+
         lots = lots.filtered(
             lambda l: float_compare(
-                l.product_qty, 0, precision_digits=l.product_uom_id.rounding
+                sum(l.quant_ids.filtered(
+                lambda q: q.location_id.id == src_storage_id and q.location_id.usage == 'internal' or (q.location_id.usage == 'transit' and q.location_id.company_id)
+            ).mapped('quantity')), 0, precision_digits=l.product_uom_id.rounding
             )
-            > 0 and l.quant_id and l.quant_id.location_id == src_storage_id
+            > 0 
         )
 
         return lots.mapped("name")
