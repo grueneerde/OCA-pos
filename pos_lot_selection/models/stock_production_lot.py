@@ -13,7 +13,6 @@ class ProductionLot(models.Model):
         lots = self.sudo().search(
             [
                 "&",
-                "&",
                 ["product_id", "=", product_id],
                 "|",
                 ["company_id", "=", company_id],
