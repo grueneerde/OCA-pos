@@ -24,7 +24,7 @@ class ProductionLot(models.Model):
         lots = lots.filtered(
             lambda l: float_compare(
                 sum(l.quant_ids.filtered(
-                lambda q: q.location_id.id == src_storage_id.id and q.location_id.usage == 'internal' or (q.location_id.usage == 'transit' and q.location_id.company_id)
+                lambda q: q.location_id.id == src_storage_id[0] and q.location_id.usage == 'internal' or (q.location_id.usage == 'transit' and q.location_id.company_id)
             ).mapped('quantity')), 0, precision_digits=l.product_uom_id.rounding
             )
             > 0 
