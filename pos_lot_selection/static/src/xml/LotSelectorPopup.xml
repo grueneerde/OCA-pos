@@ -12,9 +12,6 @@
     <t t-inherit="point_of_sale.EditListInput" t-inherit-mode="extension">
         <xpath expr="//input" position="attributes">
             <attribute name="list">prepared_lots</attribute>
-            <attribute name="t-att-value">
-                props.lots and props.lots[0] or ''
-            </attribute>
         </xpath>
         <xpath expr="//input" position="after">
             <datalist id="prepared_lots">

@@ -14,6 +14,15 @@ odoo.define("pos_lot_selection.EditListPopup", function (require) {
                 super(...arguments);
                 if (this.props.title === this.env._t("Lot/Serial Number(s) Required")) {
                     this.props.lots = this.env.session.lots;
+                    if (
+                        this.props.lots.length &&
+                        this.props.list &&
+                        this.props.list.length
+                    ) {
+                        if (!this.props.list[0].text) {
+                            this.props.list[0].text = this.props.lots[0];
+                        }
+                    }
                 }
             }
         };
