@@ -17,7 +17,8 @@ class ProductionLot(models.Model):
                 "|",
                 ["company_id", "=", company_id],
                 ["company_id", "=", False],
-            ]
+            ],
+            order="create_date asc, id asc",
         )
 
 
