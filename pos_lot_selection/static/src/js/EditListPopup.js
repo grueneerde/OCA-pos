@@ -21,6 +21,25 @@ odoo.define("pos_lot_selection.EditListPopup", function (require) {
                     }
                 }
             }
+            mounted() {
+                if (super.mounted) {
+                    super.mounted();
+                }
+
+                if (this.props.title === this.env._t("Lot/Serial Number(s) Required")) {
+                    const lots = this.props.lots || [];
+                    if (
+                        lots.length &&
+                        this.state &&
+                        this.state.array &&
+                        this.state.array.length
+                    ) {
+                        if (!this.state.array[0].text) {
+                            this.state.array[0].text = lots[0];
+                        }
+                    }
+                }
+            }
         };
 
     Registries.Component.extend(EditListPopup, LotSelectEditListPopup);
